@@ -15,7 +15,7 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:22.0.3
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
-# change these values to point to a running postgres instance
+# from https://community.fly.io/t/run-keycloak-with-fly/5454/4
 ENV JAVA_OPTS_APPEND="-Djava.net.preferIPv4Stack=false"
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]

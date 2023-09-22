@@ -18,6 +18,9 @@ processes = []
 # export PW=$(pwgen -s 32 1); echo KEYCLOAK_ADMIN_PASSWORD=$PW; fly secrets set KEYCLOAK_ADMIN_PASSWORD=$PW
 # KEYCLOAK_ADMIN_PASSWORD=
 
+# from https://community.fly.io/t/run-keycloak-with-fly/5454/5
+  JAVA_OPTS_APPEND="-Djava.net.preferIPv4Stack=false"
+
 [build]
 
 [[services]]
