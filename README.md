@@ -40,7 +40,7 @@ CREATE ROLE keycloak WITH LOGIN PASSWORD '<password-from-pwgen-above>';
 CREATE DATABASE keycloak OWNER = keycloak;
 ```
 
-create the fly app (keycloak needs a minimum of 512MB of memory, and needs special configuration to run in cluster mode)
+create the fly app (keycloak needs a minimum of 512MB of memory, and needs special configuration to run in cluster mode, so we'll just run one instance for now)
 ```
 fly launch
 
