@@ -1,0 +1,15 @@
+version: "3.1"
+
+services:
+  keycloak:
+    image: mykeycloak
+    env_file: .env
+    ports:
+    - 8080:8080
+    command: ["start", "--optimized"]
+
+  keycloakdb:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: superSecure
+

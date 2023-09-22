@@ -1,0 +1,39 @@
+app = "com-tzwolak-auth"
+kill_signal = "SIGINT"
+kill_timeout = 5
+mounts = []
+primary_region = "den"
+processes = []
+
+[env]
+  KC_DB = "postgres"
+  KC_DB_URL = "jdbc:postgresql://com-tzwolak-prod-db.flycast/keycloak?sslmode=disable"
+  KC_DB_USERNAME = "keycloak"
+# export PW=$(pwgen -s 32 1); echo KC_DB_PASSWORD=$PW; fly secrets set KC_DB_PASSWORD=$PW
+# KC_DB_PASSWORD=  
+  KC_HOSTNAME = "auth.tzwolak.com"
+  KC_HTTP_ENABLED = "true"
+  KC_PROXY = "edge"
+  KEYCLOAK_ADMIN = "admin"
+# export PW=$(pwgen -s 32 1); echo KEYCLOAK_ADMIN_PASSWORD=$PW; fly secrets set KEYCLOAK_ADMIN_PASSWORD=$PW
+# KEYCLOAK_ADMIN_PASSWORD=
+
+[build]
+
+[[services]]
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
